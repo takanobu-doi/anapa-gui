@@ -107,7 +107,7 @@ GroupBox::GroupBox(const TGWindow *p, const char *name):
   new TGRadioButton(fEventSelect, "1", 1);
   new TGRadioButton(fEventSelect, "2", 2);
   new TGRadioButton(fEventSelect, "3", 3);
-  new TGRadioButton(fEventSelect, "4<", 4);
+  new TGRadioButton(fEventSelect, "4~", 4);
   fEventSelect->Connect("Pressed(Int_t)", "GroupBox", this, "SetEvent(Int_t)");
   fEventSelect->SetButton(0);
   fSelect = new TGTextButton(horz2, "Select");
@@ -327,14 +327,12 @@ int GroupBox::GetEvent()
 void GroupBox::Anode()
 {
   fAnode->SetState(kButtonDisabled);
-  fCathode->SetState(kButtonUp);
   AnodeUpdate();
   ClickPos(canvas->GetCanvas(), X_anode, Y_anode, EventId+1);
 }
 
 void GroupBox::Cathode()
 {
-  fAnode->SetState(kButtonUp);
   fCathode->SetState(kButtonDisabled);
   CathodeUpdate();
   ClickPos(canvas->GetCanvas(), X_cathode, Y_cathode, EventId+1); 

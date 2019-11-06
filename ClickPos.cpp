@@ -4,6 +4,7 @@
 #include <TCanvas.h>
 #include <TQObject.h>
 #include <TStyle.h>
+#include <TGraph.h>
 #include <iostream>
 #include <vector>
 #include "TROOT.h"
@@ -26,18 +27,29 @@ void SingleContainer::Locate(Int_t event, Int_t x0, Int_t y0, TObject *selected)
   case 1:
     if(strcmp(selected->ClassName(), "TH2D")==0){
       TH2D *h = (TH2D*)selected;
-      std::cout << h->GetName() << std::endl;
+//      std::cout << h->GetName() << std::endl;
+      // convert axis
       x -= (gPad->GetWw())*(gStyle->GetPadLeftMargin());
       x /= (gPad->GetWw()*(1-gStyle->GetPadRightMargin()-gStyle->GetPadLeftMargin()));
       x *= h->GetXaxis()->GetXmax()-h->GetXaxis()->GetXmin();
       x += h->GetXaxis()->GetXmin();
-      
+      // convert axis
       y -= (gPad->GetWh())*(gStyle->GetPadBottomMargin());
       y /= (gPad->GetWh()*(1-gStyle->GetPadBottomMargin()-gStyle->GetPadTopMargin()));
       y *= h->GetYaxis()->GetXmax()-h->GetYaxis()->GetXmin();
+      // push to containor
       X->push_back(x);
       Y->push_back(y);
-      std::cout << x << " " << y << std::endl;
+
+      // plot clicked point
+      TGraph *point = new TGraph();
+      point->SetPoint(0, x, y);
+      point->SetMarkerSize(2);
+      point->SetMarkerColor(2);
+      point->SetMarkerStyle(34);
+      point->Draw("P");
+
+//      std::cout << x << " " << y << std::endl;
     }
     if((--ClickNum)==0){
       c->Disconnect("ProcessedEvent(Int_t, Int_t, Int_t, TObject*)", 0,
