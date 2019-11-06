@@ -7,8 +7,15 @@
 #include <TGComboBox.h>
 #include <TGFrame.h>
 #include <TGLayout.h>
+#include <TGButton.h>
+#include <TGMenu.h>
+#include <TObject.h>
 #include <TROOT.h>
 #include <TApplication.h>
+#include <iostream>
+#include <fstream>
+#include <string>
+#include <vector>
 
 ////////// create gui window & set button and textentry //////////
 GUIWindow::GUIWindow(int runNo)
@@ -21,9 +28,12 @@ GUIWindow::GUIWindow(int runNo)
   fMain = new TGMainFrame(gClient->GetRoot(), 10, 10, kMainFrame | kVerticalFrame);
   // recusively delete all subframes on exit //
   fMain->SetCleanup(kDeepCleanup);
-
+  
   ///// create group frame //////
-  fSelector = new GroupBox(fMain, "Event viewer", "Selector", runNo);
+  fSelector = new GroupBox(fMain, "Event viewer", "Selector");
+  fSelector->SetRunNo(runNo);
+  fSelector->SetBranchAddress();
+  fSelector->Update();
   fMain->AddFrame(fSelector, new TGLayoutHints(kLHintsExpandX | kLHintsExpandY, 5, 5));
 
   // terminate ROOT session when window is closed //
@@ -37,3 +47,4 @@ GUIWindow::GUIWindow(int runNo)
   fMain->MapRaised();
 
 }
+

@@ -3,16 +3,20 @@
 
 #include "GroupBox.hpp"
 #include <TGFrame.h>
+#include <TGButton.h>
+#include <TGMenu.h>
+#include <TObject.h>
+#include <vector>
+#include <string>
 
-class GUIWindow{
+class GUIWindow: public TObject{
 protected:
   TGMainFrame *fMain; // main frame
   GroupBox *fSelector; // echo mode (echo, password, no echo)
+  
 public:
   GUIWindow(int runNo);
   virtual ~GUIWindow() { delete fMain;}
-//  void ChangeStrings();
-//  ClassDef(GUIWindow, 0);
 };
 
 #endif

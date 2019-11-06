@@ -6,7 +6,7 @@
 
 int main(int argc, char *argv[])
 {
-  int runNo = 0;
+  int runNo = 97;
   TApplication app("app", &argc, argv);
   new GUIWindow(runNo);
   app.Run();
