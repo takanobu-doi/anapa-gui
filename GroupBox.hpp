@@ -38,6 +38,8 @@ private:
   TGTextButton *fCancel;
   TGLabel *label;
   TGLabel *message;
+  TGTextButton *fAnode;
+  TGTextButton *fCathode;
   
   ///// files /////
   TFile *ifile;
@@ -48,6 +50,7 @@ private:
   int RunNum; // registered run number
   Bool_t Login; // status of login
   Bool_t AnaState; // status of analysis
+  Bool_t Click; // status of ClickPos
   
   ///// parameters to handle analysis /////
   int UserId; // current user id
@@ -55,7 +58,11 @@ private:
   int EventNo; // current event No
   int MaxEventNo; // max event number in current run
   int EventId; // selected event id
-  std::vector<double> pos;
+  std::vector<Double_t> pos;
+  std::vector<Double_t> X_anode;
+  std::vector<Double_t> Y_anode;
+  std::vector<Double_t> X_cathode;
+  std::vector<Double_t> Y_cathode;
 
   ///// parts to draw histograms /////
   TTree *tree;
@@ -68,6 +75,8 @@ public:
   GroupBox(const TGWindow *p, const char *name);
   void StartStopAnalysis();
   void Update();
+  void AnodeUpdate();
+  void CathodeUpdate();
   void SetUserId(Int_t UID);
   void SetRunNo(Int_t runNo);
   int OpenRootFile();
@@ -80,12 +89,17 @@ public:
   void ChangeLoginState();
   void SetEvent(Int_t Id);
   int GetEvent();
+  void Anode();
+  void Cathode();
   void Next();
   void Cancel();
   void Init();
   void Reset();
   void EndOfFile();
   void Exit();
+  void ClickPos(TCanvas *c1, std::vector<Double_t> &X, std::vector<Double_t> &Y, int click_num);
+  void Locate(Int_t event, Int_t x, Int_t y, TObject *selected);
+  void StopClickPos();
 
   ClassDef(GroupBox, 0)
 };
