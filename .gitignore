@@ -3,3 +3,5 @@ anapa_gui
 *.o
 *.root
 *.pcm
+*.dat
+*.txt

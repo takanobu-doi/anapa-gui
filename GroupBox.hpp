@@ -11,6 +11,7 @@
 #include <TGButtonGroup.h>
 #include <TGMenu.h>
 #include <TGTextEntry.h>
+#include <TGLabel.h>
 #include <TFile.h>
 #include <TString.h>
 #include <TH2.h>
@@ -33,6 +34,10 @@ private:
   TGTextEntry *fEntry;
   TGButtonGroup *fEventSelect;
   TGTextButton *fSelect;
+  TGTextButton *fNext;
+  TGTextButton *fCancel;
+  TGLabel *label;
+  TGLabel *message;
   
   ///// files /////
   TFile *ifile;
@@ -42,6 +47,7 @@ private:
   int UserNum; // registered user number
   int RunNum; // registered run number
   Bool_t Login; // status of login
+  Bool_t AnaState; // status of analysis
   
   ///// parameters to handle analysis /////
   int UserId; // current user id
@@ -60,10 +66,12 @@ private:
 public:
   GroupBox();
   GroupBox(const TGWindow *p, const char *name);
-  void StartAnalysis();
+  void StartStopAnalysis();
   void Update();
-  void SetRunNo(const int runNo);
-  void LogIn(const int UID);
+  void SetUserId(Int_t UID);
+  void SetRunNo(Int_t runNo);
+  int OpenRootFile();
+  void LogIn();
   void LogOut();
   void SetBranchAddress();
   void InitUser();
@@ -77,6 +85,7 @@ public:
   void Init();
   void Reset();
   void EndOfFile();
+  void Exit();
 
   ClassDef(GroupBox, 0)
 };
