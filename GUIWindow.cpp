@@ -30,10 +30,7 @@ GUIWindow::GUIWindow(int runNo)
   fMain->SetCleanup(kDeepCleanup);
   
   ///// create group frame //////
-  fSelector = new GroupBox(fMain, "Event viewer", "Selector");
-  fSelector->SetRunNo(runNo);
-  fSelector->SetBranchAddress();
-  fSelector->Update();
+  fSelector = new GroupBox(fMain, "minnade click");
   fMain->AddFrame(fSelector, new TGLayoutHints(kLHintsExpandX | kLHintsExpandY, 5, 5));
 
   // terminate ROOT session when window is closed //

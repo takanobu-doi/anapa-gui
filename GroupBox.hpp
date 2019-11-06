@@ -8,6 +8,7 @@
 #include <TCanvas.h>
 #include <TRootEmbeddedCanvas.h>
 #include <TGButton.h>
+#include <TGButtonGroup.h>
 #include <TGMenu.h>
 #include <TGTextEntry.h>
 #include <TFile.h>
@@ -25,18 +26,30 @@ private:
   TGSplitButton *fIdButton; // select user id
   TGPopupMenu *fIdPopMenu; // will be attached to fIDButton
   TGTextButton *fLogin; // login button
+  TGSplitButton *fRunButton; // select run no
+  TGPopupMenu *fRunPopMenu; // will be attached to fRunButton
+  TGTextButton *fStart; // start button
   TGTextButton *fAdd; // add user
   TGTextEntry *fEntry;
+  TGButtonGroup *fEventSelect;
+  TGTextButton *fSelect;
   
   ///// files /////
   TFile *ifile;
   std::ofstream ofile;
 
+  ///// parameters of system control
+  int UserNum; // registered user number
+  int RunNum; // registered run number
+  Bool_t Login; // status of login
+  
   ///// parameters to handle analysis /////
   int UserId; // current user id
+  int RunNo;
   int EventNo; // current event No
-  int UserNum; // registered user number 
-  Bool_t Login; // status of login
+  int MaxEventNo; // max event number in current run
+  int EventId; // selected event id
+  std::vector<double> pos;
 
   ///// parts to draw histograms /////
   TTree *tree;
@@ -46,15 +59,24 @@ private:
   
 public:
   GroupBox();
-  GroupBox(const TGWindow *p, const char *name, const char *title);
+  GroupBox(const TGWindow *p, const char *name);
+  void StartAnalysis();
   void Update();
   void SetRunNo(const int runNo);
   void LogIn(const int UID);
   void LogOut();
   void SetBranchAddress();
   void InitUser();
+  void InitRun();
   void AddUser();
   void ChangeLoginState();
+  void SetEvent(Int_t Id);
+  int GetEvent();
+  void Next();
+  void Cancel();
+  void Init();
+  void Reset();
+  void EndOfFile();
 
   ClassDef(GroupBox, 0)
 };

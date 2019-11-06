@@ -55,7 +55,7 @@ namespace ROOT {
       ::GroupBox *ptr = 0;
       static ::TVirtualIsAProxy* isa_proxy = new ::TInstrumentedIsAProxy< ::GroupBox >(0);
       static ::ROOT::TGenericClassInfo 
-         instance("GroupBox", ::GroupBox::Class_Version(), "GroupBox.hpp", 21,
+         instance("GroupBox", ::GroupBox::Class_Version(), "GroupBox.hpp", 22,
                   typeid(::GroupBox), ::ROOT::Internal::DefineBehavior(ptr, ptr),
                   &::GroupBox::Dictionary, isa_proxy, 16,
                   sizeof(::GroupBox) );
