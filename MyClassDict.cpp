@@ -1,6 +1,7 @@
 // Do NOT change. Changes will be lost next time file is generated
 
 #define R__DICTIONARY_FILENAME MyClassDict
+#define R__NO_DEPRECATION
 
 /*******************************************************************/
 #include <stddef.h>
@@ -33,7 +34,7 @@
 
 #include "TDataMember.h"
 
-// Since CINT ignores the std namespace, we need to do so in this file.
+// The generated code does not explicitly qualifies STL entities
 namespace std {} using namespace std;
 
 // Header files passed as explicit arguments
@@ -55,7 +56,7 @@ namespace ROOT {
       ::GroupBox *ptr = 0;
       static ::TVirtualIsAProxy* isa_proxy = new ::TInstrumentedIsAProxy< ::GroupBox >(0);
       static ::ROOT::TGenericClassInfo 
-         instance("GroupBox", ::GroupBox::Class_Version(), "GroupBox.hpp", 23,
+         instance("GroupBox", ::GroupBox::Class_Version(), "GroupBox.hpp", 24,
                   typeid(::GroupBox), ::ROOT::Internal::DefineBehavior(ptr, ptr),
                   &::GroupBox::Dictionary, isa_proxy, 16,
                   sizeof(::GroupBox) );
@@ -150,8 +151,8 @@ namespace {
 0
     };
     static const char* includePaths[] = {
-"/home/takanobu/cern/root-6.14.04/obj/include",
-"/hdd1/work1/master/anapa-gui/",
+"/usr/local/include",
+"/home/doi/master/anapa_gui/",
 0
     };
     static const char* fwdDeclCode = R"DICTFWDDCLS(
@@ -165,11 +166,9 @@ class __attribute__((annotate("$clingAutoload$GroupBox.hpp")))  GroupBox;
     static const char* payloadCode = R"DICTPAYLOAD(
 #line 1 "MyClassDict dictionary payload"
 
-#ifndef G__VECTOR_HAS_CLASS_ITERATOR
-  #define G__VECTOR_HAS_CLASS_ITERATOR 1
-#endif
 
 #define _BACKWARD_BACKWARD_WARNING_H
+// Inline headers
 #include "GroupBox.hpp"
 
 #undef  _BACKWARD_BACKWARD_WARNING_H

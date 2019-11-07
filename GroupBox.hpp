@@ -17,6 +17,7 @@
 #include <TH2.h>
 #include <TTree.h>
 #include <fstream>
+#include <map>
 
 ////////// main part to treat data //////////
 
@@ -54,6 +55,7 @@ private:
   
   ///// parameters to handle analysis /////
   int UserId; // current user id
+  std::map<int, int> Progress;
   int RunNo;
   int EventNo; // current event No
   int MaxEventNo; // max event number in current run
@@ -100,6 +102,8 @@ public:
   void ClickPos(TCanvas *c1, std::vector<Double_t> &X, std::vector<Double_t> &Y, int click_num);
   void Locate(Int_t event, Int_t x, Int_t y, TObject *selected);
   void StopClickPos();
+  void ReadProgress();
+  void WriteProgress();
 
   ClassDef(GroupBox, 0)
 };

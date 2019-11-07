@@ -17,11 +17,13 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <map>
 
 ClassImp(GroupBox);
 
-const std::string UserFileName = "UserNameList.txt";
-const std::string RunFileName = "RunNumberList.txt";
+const std::string UserFileName = ".UserNameList.txt";
+const std::string RunFileName = ".RunNumberList.txt";
+const std::string ProgressFileName = ".ProgressID";
 const Int_t Width = 600;
 const Int_t Height = 600;
 
@@ -185,6 +187,8 @@ void GroupBox::Update() // Unlock all selector and update images
   
   canvas->GetCanvas()->cd(0);
   canvas->GetCanvas()->Update();
+
+  WriteProgress();
 }
 
 
@@ -233,6 +237,8 @@ void GroupBox::LogIn() // set user ID
     TString filename;
     filename.Form("ID%02d.dat", UserId);
     ofile.open(filename, std::ios_base::app);
+    ReadProgress();
+    
     fLogin->SetText("Logout");
     fIdButton->SetState(kButtonDisabled);
     fAdd->SetState(kButtonDisabled);
@@ -255,6 +261,8 @@ void GroupBox::LogOut()
   if(ofile.is_open()){
     ofile.close();
   }
+  WriteProgress();
+
   fIdButton->SetState(kButtonUp);
   fLogin->SetText("Login");
   fAdd->SetState(kButtonUp);
@@ -303,7 +311,7 @@ void GroupBox::AddUser()
 void GroupBox::SetEvent(Int_t Id)
 {
   EventId = Id;
-  if(Id!=0){
+  if(Id!=0 && AnaState){
     fSelect->SetState(kButtonUp);
   }
 }
@@ -340,7 +348,7 @@ void GroupBox::Cathode()
 
 void GroupBox::Next()
 {
-  EventNo++;
+  Progress[RunNo] = (++EventNo);
   Reset();
   if(EventNo<MaxEventNo){
     Update();
@@ -400,6 +408,9 @@ void GroupBox::StartStopAnalysis()
   }else{
     if(OpenRootFile()){
       SetBranchAddress();
+      if(Progress.count(RunNo)){
+	Progress[RunNo] = 0;
+      }
       Update();
       Init();
       fRunButton->SetState(kButtonDisabled);
@@ -440,4 +451,31 @@ void GroupBox::StopClickPos()
 		"Locate(Int_t, Int_t, Int_t, TObject*)");
 }
 
+void GroupBox::ReadProgress()
+{
+  TString filename;
+  std::ifstream progfile;
+  filename.Form("%s%02d.txt", ProgressFileName.c_str(), UserId);
+  progfile.open(filename);
+  Progress.clear();
+  std::string line;
+  while(getline(progfile, line)){
+    std::stringstream stream;
+    stream << line;
+    int runno, prog;
+    stream >> runno >> prog;
+    Progress[runno] = prog;
+  }
+}
 
+void GroupBox::WriteProgress()
+{
+  TString filename;
+  std::ofstream progfile;
+  filename.Form("%s%02d.txt", ProgressFileName.c_str(), UserId);
+  progfile.open(filename);
+  for(auto itr=Progress.begin();itr!=Progress.end();++itr){
+    progfile << itr->first << itr->second << std::endl;
+  }
+  progfile.close();
+}
