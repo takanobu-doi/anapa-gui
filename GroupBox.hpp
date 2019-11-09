@@ -88,7 +88,7 @@ public:
   void LogOut();
   void SetBranchAddress();
   void InitUser();
-  void InitRun();
+  void LoadRun();
   void AddUser();
   void ChangeLoginState();
   void SetEvent(Int_t Id);

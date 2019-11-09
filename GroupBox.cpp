@@ -32,7 +32,7 @@ GroupBox::GroupBox()
 }
 
 GroupBox::GroupBox(const TGWindow *p, const char *name):
-  TGGroupFrame(p, name), ifile(nullptr), UserId(0), EventNo(0), UserNum(0), Login(kFALSE), AnaState(kFALSE)//, Map()
+  TGGroupFrame(p, name), ifile(nullptr), UserId(0), EventNo(0), UserNum(0), RunNum(0), Login(kFALSE), AnaState(kFALSE)//, Map()
 {
   // create GUI frames
   TGHorizontalFrame *horz = new TGHorizontalFrame(this, Width, Height, kFixedWidth); // make hori frame
@@ -64,7 +64,7 @@ GroupBox::GroupBox(const TGWindow *p, const char *name):
   fRunPopMenu = new TGPopupMenu(gClient->GetRoot());
   fRunPopMenu->AddEntry("Please select", RunNum);
   fRunPopMenu->Connect("Activated(Int_t)", "GroupBox", this, "SetRunNo(Int_t)");
-  InitRun();
+  LoadRun();
   fRunButton = new TGSplitButton(fHL2, new TGHotString("Please select"),
 				 fRunPopMenu);
   fRunButton->SetState(kButtonDisabled);
@@ -238,7 +238,7 @@ void GroupBox::LogIn() // set user ID
     filename.Form("ID%02d.dat", UserId);
     ofile.open(filename, std::ios_base::app);
     ReadProgress();
-    
+    LoadRun();
     fLogin->SetText("Logout");
     fIdButton->SetState(kButtonDisabled);
     fAdd->SetState(kButtonDisabled);
@@ -287,12 +287,17 @@ void GroupBox::InitUser()
   userfile.close();
 }
 
-void GroupBox::InitRun()
+void GroupBox::LoadRun()
 {
   std::ifstream runfile(RunFileName);
   std::string runnumber;
+  int runtemp = 0;
   while(getline(runfile, runnumber)){
-    fRunPopMenu->AddEntry(runnumber.c_str(), stoi(runnumber));
+    if(runtemp==RunNum){
+      fRunPopMenu->AddEntry(runnumber.c_str(), stoi(runnumber));
+      RunNum++;
+    }
+    runtemp++;
   }
   runfile.close();
 }
@@ -378,7 +383,7 @@ void GroupBox::Cancel()
 void GroupBox::Init()
 {
   MaxEventNo = tree->GetEntries();
-  EventNo = 0;
+  EventNo = Progress[RunNo];
   Reset();
 }
 
