@@ -318,7 +318,7 @@ void GroupBox::SetEvent(Int_t Id)
 
 int GroupBox::GetEvent()
 {
-  fNext->SetState(kButtonUp);
+//  fNext->SetState(kButtonUp);
   fSelect->SetState(kButtonDisabled);
   std::string str;
   if(EventId<4){
@@ -337,6 +337,10 @@ void GroupBox::Anode()
   fAnode->SetState(kButtonDisabled);
   AnodeUpdate();
   ClickPos(canvas->GetCanvas(), X_anode, Y_anode, EventId+1);
+  AnodeClicked = kTRUE;
+  if(CathodeClicked){
+    fNext->SetState(kButtonUp);
+  }
 }
 
 void GroupBox::Cathode()
@@ -344,10 +348,15 @@ void GroupBox::Cathode()
   fCathode->SetState(kButtonDisabled);
   CathodeUpdate();
   ClickPos(canvas->GetCanvas(), X_cathode, Y_cathode, EventId+1); 
+  CathodeClicked = kTRUE;
+  if(AnodeClicked){
+    fNext->SetState(kButtonUp);
+  }
 }
 
 void GroupBox::Next()
 {
+  OutputData();
   Progress[RunNo] = (++EventNo);
   Reset();
   if(EventNo<MaxEventNo){
@@ -373,9 +382,22 @@ void GroupBox::Init()
   Reset();
 }
 
+void GroupBox::OutputData()
+{
+  ofile << RunNo << " " << EventNo << " " << std::flush;
+  ofile << EventId << " " << std::flush;
+  for(int i=0;i!=EventId+1;++i){
+    ofile << X_anode.at(i) << " " << Y_anode.at(i) << " "
+	  << X_cathode.at(i) << " " << Y_cathode.at(i) << " " << std::flush;
+  }
+  ofile << std::endl;
+}
+
 void GroupBox::Reset()
 {
   EventId = 0;
+  AnodeClicked = kFALSE;
+  CathodeClicked = kFALSE;
   pos.clear();
   X_anode.clear();
   Y_anode.clear();
@@ -408,7 +430,7 @@ void GroupBox::StartStopAnalysis()
   }else{
     if(OpenRootFile()){
       SetBranchAddress();
-      if(Progress.count(RunNo)){
+      if(Progress.count(RunNo)==0){
 	Progress[RunNo] = 0;
       }
       Update();
@@ -464,6 +486,7 @@ void GroupBox::ReadProgress()
     stream << line;
     int runno, prog;
     stream >> runno >> prog;
+    std::cout << runno << " " << prog << std::endl;
     Progress[runno] = prog;
   }
 }
@@ -475,7 +498,7 @@ void GroupBox::WriteProgress()
   filename.Form("%s%02d.txt", ProgressFileName.c_str(), UserId);
   progfile.open(filename);
   for(auto itr=Progress.begin();itr!=Progress.end();++itr){
-    progfile << itr->first << itr->second << std::endl;
+    progfile << itr->first << " " << itr->second << std::endl;
   }
   progfile.close();
 }

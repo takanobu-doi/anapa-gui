@@ -1,7 +1,6 @@
 // Do NOT change. Changes will be lost next time file is generated
 
 #define R__DICTIONARY_FILENAME MyClassDict
-#define R__NO_DEPRECATION
 
 /*******************************************************************/
 #include <stddef.h>
@@ -34,7 +33,7 @@
 
 #include "TDataMember.h"
 
-// The generated code does not explicitly qualifies STL entities
+// Since CINT ignores the std namespace, we need to do so in this file.
 namespace std {} using namespace std;
 
 // Header files passed as explicit arguments
@@ -151,8 +150,8 @@ namespace {
 0
     };
     static const char* includePaths[] = {
-"/usr/local/include",
-"/home/doi/master/anapa_gui/",
+"/home/takanobu/cern/root-6.14.04/obj/include",
+"/hdd1/work1/master/anapa-gui/",
 0
     };
     static const char* fwdDeclCode = R"DICTFWDDCLS(
@@ -166,9 +165,11 @@ class __attribute__((annotate("$clingAutoload$GroupBox.hpp")))  GroupBox;
     static const char* payloadCode = R"DICTPAYLOAD(
 #line 1 "MyClassDict dictionary payload"
 
+#ifndef G__VECTOR_HAS_CLASS_ITERATOR
+  #define G__VECTOR_HAS_CLASS_ITERATOR 1
+#endif
 
 #define _BACKWARD_BACKWARD_WARNING_H
-// Inline headers
 #include "GroupBox.hpp"
 
 #undef  _BACKWARD_BACKWARD_WARNING_H

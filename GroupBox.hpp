@@ -52,6 +52,8 @@ private:
   Bool_t Login; // status of login
   Bool_t AnaState; // status of analysis
   Bool_t Click; // status of ClickPos
+  Bool_t AnodeClicked;
+  Bool_t CathodeClicked;
   
   ///// parameters to handle analysis /////
   int UserId; // current user id
@@ -97,6 +99,7 @@ public:
   void Cancel();
   void Init();
   void Reset();
+  void OutputData();
   void EndOfFile();
   void Exit();
   void ClickPos(TCanvas *c1, std::vector<Double_t> &X, std::vector<Double_t> &Y, int click_num);
