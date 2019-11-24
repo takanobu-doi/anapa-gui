@@ -13,6 +13,8 @@
 #include <TFile.h>
 #include <TString.h>
 #include <TTree.h>
+#include <TStyle.h>
+#include <TROOT.h>
 #include "decode.hpp"
 #include <iostream>
 #include <fstream>
@@ -24,8 +26,8 @@ ClassImp(GroupBox);
 const std::string UserFileName = ".UserNameList.txt";
 const std::string RunFileName = ".RunNumberList.txt";
 const std::string ProgressFileName = ".ProgressID";
-const Int_t Width = 600;
-const Int_t Height = 600;
+const Int_t Width = 700;
+const Int_t Height = 700;
 
 GroupBox::GroupBox()
 {
@@ -136,12 +138,14 @@ GroupBox::GroupBox(const TGWindow *p, const char *name):
   fNext->SetState(kButtonDisabled);
   fCancel = new TGTextButton(horz2, "Cancel");
   fCancel->Connect("Clicked()", "GroupBox", this, "Cancel()");
+  fCancel->SetState(kButtonDisabled);
   horz2->AddFrame(fCancel, new TGLayoutHints(kLHintsRight | kLHintsCenterY));
   horz2->AddFrame(fNext, new TGLayoutHints(kLHintsRight | kLHintsCenterY, 0, 10, 0, 0));
   
   // create 2D-histograms
   track_a = new TH2D("track_a", "anode", 256, 0, 256, 1024, 0, 1024);
   track_c = new TH2D("track_c", "cathode", 256, 0, 256, 1024, 0, 1024);
+  gStyle->SetPalette(56);
 }
 
 void GroupBox::AnodeUpdate()
@@ -149,8 +153,9 @@ void GroupBox::AnodeUpdate()
   canvas->GetCanvas()->Clear();
   canvas->GetCanvas()->cd(0);
   track_a->SetStats(0);
+  track_a->GetXaxis()->SetTickLength(0);
   track_a->GetYaxis()->SetTickLength(0);
-  track_a->Draw();
+  track_a->Draw("col");
   canvas->GetCanvas()->Update();
 }
 
@@ -159,8 +164,9 @@ void GroupBox::CathodeUpdate()
   canvas->GetCanvas()->Clear();
   canvas->GetCanvas()->cd(0);
   track_c->SetStats(0);
+  track_c->GetXaxis()->SetTickLength(0);
   track_c->GetYaxis()->SetTickLength(0);
-  track_c->Draw();
+  track_c->Draw("col");
   canvas->GetCanvas()->Update();
 }
 
@@ -178,12 +184,14 @@ void GroupBox::Update() // Unlock all selector and update images
   canvas->GetCanvas()->Divide(2, 1);
   canvas->GetCanvas()->cd(1);
   track_a->SetStats(0);
+  track_a->GetXaxis()->SetTickLength(0);
   track_a->GetYaxis()->SetTickLength(0);
-  track_a->Draw();
+  track_a->Draw("col");
   canvas->GetCanvas()->cd(2);
   track_c->SetStats(0);
+  track_c->GetXaxis()->SetTickLength(0);
   track_c->GetYaxis()->SetTickLength(0);
-  track_c->Draw();
+  track_c->Draw("col");
   
   canvas->GetCanvas()->cd(0);
   canvas->GetCanvas()->Update();
@@ -327,7 +335,7 @@ int GroupBox::GetEvent()
   fSelect->SetState(kButtonDisabled);
   std::string str;
   if(EventId<4){
-    std::cout << EventId << std::endl;
+//    std::cout << EventId << std::endl;
     str = "Please click " + std::to_string(EventId+1) + " point(s) in each image.\n Then go next.";
     fAnode->SetState(kButtonUp);
     fCathode->SetState(kButtonUp);
@@ -431,6 +439,7 @@ void GroupBox::StartStopAnalysis()
     fRunButton->SetState(kButtonUp);
     fLogin->SetState(kButtonUp);
     fStart->SetText("Start");
+    fCancel->SetState(kButtonDisabled);
     AnaState = kFALSE;
   }else{
     if(OpenRootFile()){
@@ -443,6 +452,7 @@ void GroupBox::StartStopAnalysis()
       fRunButton->SetState(kButtonDisabled);
       fLogin->SetState(kButtonDisabled);
       fStart->SetText("Stop");
+      fCancel->SetState(kButtonUp);
       AnaState = kTRUE;
     }else{
       fRunButton->SetState(kButtonUp);
@@ -491,7 +501,7 @@ void GroupBox::ReadProgress()
     stream << line;
     int runno, prog;
     stream >> runno >> prog;
-    std::cout << runno << " " << prog << std::endl;
+//    std::cout << runno << " " << prog << std::endl;
     Progress[runno] = prog;
   }
 }
