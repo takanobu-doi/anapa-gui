@@ -150,6 +150,7 @@ GroupBox::GroupBox(const TGWindow *p, const char *name):
 
 void GroupBox::AnodeUpdate()
 {
+  canvas->GetCanvas()->SetEditable(kTRUE);
   canvas->GetCanvas()->Clear();
   canvas->GetCanvas()->cd(0);
   track_a->SetStats(0);
@@ -157,10 +158,12 @@ void GroupBox::AnodeUpdate()
   track_a->GetYaxis()->SetTickLength(0);
   track_a->Draw("col");
   canvas->GetCanvas()->Update();
+  canvas->GetCanvas()->SetEditable(kFALSE);
 }
 
 void GroupBox::CathodeUpdate()
 {
+  canvas->GetCanvas()->SetEditable(kTRUE);
   canvas->GetCanvas()->Clear();
   canvas->GetCanvas()->cd(0);
   track_c->SetStats(0);
@@ -168,10 +171,12 @@ void GroupBox::CathodeUpdate()
   track_c->GetYaxis()->SetTickLength(0);
   track_c->Draw("col");
   canvas->GetCanvas()->Update();
+  canvas->GetCanvas()->SetEditable(kFALSE);
 }
 
 void GroupBox::Update() // Unlock all selector and update images
 {
+  canvas->GetCanvas()->SetEditable(kTRUE);
   canvas->GetCanvas()->Clear();
   std::string label_str = "Event No. " + std::to_string(EventNo);
   label->SetText(label_str.c_str());
@@ -195,6 +200,7 @@ void GroupBox::Update() // Unlock all selector and update images
   
   canvas->GetCanvas()->cd(0);
   canvas->GetCanvas()->Update();
+  canvas->GetCanvas()->SetEditable(kFALSE);
 
   WriteProgress();
 }

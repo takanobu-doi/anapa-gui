@@ -47,14 +47,16 @@ void SingleContainer::Locate(Int_t event, Int_t x0, Int_t y0, TObject *selected)
       point->SetMarkerSize(2);
       point->SetMarkerColor(2);
       point->SetMarkerStyle(34);
+      c->SetEditable(kTRUE);
       point->Draw("P");
+      c->SetEditable(kFALSE);
 
 //      std::cout << x << " " << y << std::endl;
-    }
-    if((--ClickNum)==0){
-      c->Disconnect("ProcessedEvent(Int_t, Int_t, Int_t, TObject*)", 0,
-		    "Locate(Int_t, Int_t, Int_t, TObject*)");
-      return;
+      if((--ClickNum)==0){
+	c->Disconnect("ProcessedEvent(Int_t, Int_t, Int_t, TObject*)", 0,
+		      "Locate(Int_t, Int_t, Int_t, TObject*)");
+	return;
+      }
     }
     break;
   case 61:
