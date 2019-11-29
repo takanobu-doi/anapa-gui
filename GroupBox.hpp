@@ -54,6 +54,7 @@ private:
   Bool_t Click; // status of ClickPos
   Bool_t AnodeClicked;
   Bool_t CathodeClicked;
+  Bool_t Selected;
   
   ///// parameters to handle analysis /////
   int UserId; // current user id

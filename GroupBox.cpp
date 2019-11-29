@@ -34,7 +34,7 @@ GroupBox::GroupBox()
 }
 
 GroupBox::GroupBox(const TGWindow *p, const char *name):
-  TGGroupFrame(p, name), ifile(nullptr), UserId(0), EventNo(0), UserNum(0), RunNum(0), Login(kFALSE), AnaState(kFALSE)//, Map()
+  TGGroupFrame(p, name), ifile(nullptr), UserId(0), EventNo(0), UserNum(0), RunNum(0), Login(kFALSE), AnaState(kFALSE), Selected(kFALSE)//, Map()
 {
   // create GUI frames
   TGHorizontalFrame *horz = new TGHorizontalFrame(this, Width, Height, kFixedWidth); // make hori frame
@@ -330,8 +330,9 @@ void GroupBox::AddUser()
 void GroupBox::SetEvent(Int_t Id)
 {
   EventId = Id;
-  if(Id!=0 && AnaState){
+  if(Id!=0 && AnaState && !Selected){
     fSelect->SetState(kButtonUp);
+    Selected = kTRUE;
   }
 }
 
@@ -428,6 +429,7 @@ void GroupBox::Reset()
   fAnode->SetState(kButtonDisabled);
   fCathode->SetState(kButtonDisabled);
   message->SetText("Please select track number.");
+  Selected = kFALSE;
   Update();
 }
 
