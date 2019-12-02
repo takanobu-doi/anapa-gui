@@ -15,7 +15,7 @@ protected:
   GroupBox *fSelector; // echo mode (echo, password, no echo)
   
 public:
-  GUIWindow(int runNo);
+  GUIWindow(int H, int W);
   virtual ~GUIWindow() { delete fMain;}
 };
 

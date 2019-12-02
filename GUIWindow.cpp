@@ -18,7 +18,7 @@
 #include <vector>
 
 ////////// create gui window & set button and textentry //////////
-GUIWindow::GUIWindow(int runNo)
+GUIWindow::GUIWindow(int H, int W)
 {
 //  TGTextEntry *entry;
 //  TGTextButton *next;
@@ -30,7 +30,7 @@ GUIWindow::GUIWindow(int runNo)
   fMain->SetCleanup(kDeepCleanup);
   
   ///// create group frame //////
-  fSelector = new GroupBox(fMain, "minnade click");
+  fSelector = new GroupBox(fMain, "minnade click", H, W);
   fMain->AddFrame(fSelector, new TGLayoutHints(kLHintsExpandX | kLHintsExpandY, 5, 5));
 
   // terminate ROOT session when window is closed //

@@ -77,7 +77,7 @@ private:
   
 public:
   GroupBox();
-  GroupBox(const TGWindow *p, const char *name);
+  GroupBox(const TGWindow *p, const char *name, const int H, const int W);
   void StartStopAnalysis();
   void Update();
   void AnodeUpdate();

@@ -26,16 +26,16 @@ ClassImp(GroupBox);
 const std::string UserFileName = ".UserNameList.txt";
 const std::string RunFileName = ".RunNumberList.txt";
 const std::string ProgressFileName = ".ProgressID";
-const Int_t Width = 700;
-const Int_t Height = 700;
 
 GroupBox::GroupBox()
 {
 }
 
-GroupBox::GroupBox(const TGWindow *p, const char *name):
+GroupBox::GroupBox(const TGWindow *p, const char *name, const int H, const int W):
   TGGroupFrame(p, name), ifile(nullptr), UserId(0), EventNo(0), UserNum(0), RunNum(0), Login(kFALSE), AnaState(kFALSE), Selected(kFALSE)//, Map()
-{
+{  
+  const Int_t Height = H;
+  const Int_t Width = W;
   // create GUI frames
   TGHorizontalFrame *horz = new TGHorizontalFrame(this, Width, Height, kFixedWidth); // make hori frame
 
