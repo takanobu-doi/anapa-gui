@@ -40,7 +40,7 @@ GUIWindow::GUIWindow(int H, int W)
   // set minimux width, height //
   fMain->SetWMSizeHints(fMain->GetDefaultWidth(), fMain->GetDefaultHeight(),
 			1000, 1000, 0, 0);
-  fMain->SetWindowName("Test");
+  fMain->SetWindowName("anapa gui");
   fMain->MapRaised();
 
 }
