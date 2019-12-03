@@ -319,6 +319,9 @@ void GroupBox::LoadRun()
 void GroupBox::AddUser()
 {
   std::string username(fEntry->GetText());
+  if(username.size()==0){
+    return;
+  }
   ++UserNum;
   fIdPopMenu->AddEntry(username.c_str(), UserNum);
   fEntry->Clear();

@@ -6,8 +6,8 @@
 
 int main(int argc, char *argv[])
 {
-  int h = 500;
-  int w = 500;
+  int h = 600;
+  int w = 600;
   if(argc==3){
     h = atoi(argv[1]);
     w = atoi(argv[2]);
