@@ -157,9 +157,7 @@ void GroupBox::AnodeUpdate()
   track_a->GetXaxis()->SetTickLength(0);
   track_a->GetYaxis()->SetTickLength(0);
   track_a->Draw("col");
-  canvas->GetCanvas()->SetGrid();
-  canvas->GetCanvas()->SetGridx();
-  canvas->GetCanvas()->SetGridy();
+  gPad->SetGrid(1);
   
   canvas->GetCanvas()->Update();
   canvas->GetCanvas()->SetEditable(kFALSE);
@@ -174,9 +172,7 @@ void GroupBox::CathodeUpdate()
   track_c->GetXaxis()->SetTickLength(0);
   track_c->GetYaxis()->SetTickLength(0);
   track_c->Draw("col");
-  canvas->GetCanvas()->SetGrid();
-  canvas->GetCanvas()->SetGridx();
-  canvas->GetCanvas()->SetGridy();
+  gPad->SetGrid(1);
   
   canvas->GetCanvas()->Update();
   canvas->GetCanvas()->SetEditable(kFALSE);
@@ -200,14 +196,13 @@ void GroupBox::Update() // Unlock all selector and update images
   track_a->GetXaxis()->SetTickLength(0);
   track_a->GetYaxis()->SetTickLength(0);
   track_a->Draw("col");
+  gPad->SetGrid(1);
   canvas->GetCanvas()->cd(2);
   track_c->SetStats(0);
   track_c->GetXaxis()->SetTickLength(0);
   track_c->GetYaxis()->SetTickLength(0);
   track_c->Draw("col");
-  canvas->GetCanvas()->SetGrid();
-  canvas->GetCanvas()->SetGridx();
-  canvas->GetCanvas()->SetGridy();
+  gPad->SetGrid(1);
   
   canvas->GetCanvas()->cd(0);
   canvas->GetCanvas()->Update();
