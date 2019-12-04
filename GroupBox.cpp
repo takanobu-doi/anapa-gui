@@ -229,7 +229,7 @@ int GroupBox::OpenRootFile(){
     }
   }
   TString filename;
-  filename.Form("%04d.root", RunNo);
+  filename.Form("data/%04d.root", RunNo);
   ifile = TFile::Open(filename);
   if(ifile!=nullptr){
     if(ifile->IsOpen()){
