@@ -21,34 +21,30 @@ while True:
                         Score = Score + int(s_line.split()[1])            
         UserScore.append(Score)
 
-    UID = []
-    Max = -1
-    for i in range(len(UserScore)):
-        if len(UID)==0:
-            UID = [i]
-        else:
-            for j in range(len(UID)):
-                if UserScore[i]>UserScore[UID[j]]:
-                    UID[j:j] = [i]
-                    break
-                else:
-                    UID[j+1:j+1] = [i]
-                    break
+    UID = [0]
+    for i in range(1, len(UserScore)):
+        for j in range(len(UID)):
+            if UserScore[i]>UserScore[UID[j]]:
+                UID[j:j] = [i]
+                break
+            else:
+                UID[len(UID):len(UID)] = [i]
+                break
     Color = []
     Hatch = []
     for i in range(len(UserScore)):
         if i<len(UID):
             if UID[0]==i:
-                Color.append("r")
+                Color.append("gold")
                 Hatch.append("*")
             if UID[1]==i:
-                Color.append("b")
+                Color.append("silver")
                 Hatch.append("")
             else:
-                Color.append("k")
+                Color.append("b")
                 Hatch.append("")
         else:
-            Color.append("k")
+            Color.append("b")
             Hatch.append("")
     plt.bar(np.array(range(1, len(UserList)+1)), np.array(UserScore),
             tick_label=UserList, align="center", color=Color)
