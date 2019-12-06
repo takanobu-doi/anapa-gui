@@ -39,19 +39,16 @@ while True:
     for i in range(len(UserScore)):
         if i<len(UID):
             if UID[0]==i:
-                Color.append("gold")
+                Color.append("r")
                 Hatch.append("*")
             if UID[1]==i:
-                Color.append("silver")
-                Hatch.append("")
-            if UID[2]==i:
-                Color.append("peru")
-                Hatch.append("")
-            else:
                 Color.append("b")
                 Hatch.append("")
+            else:
+                Color.append("k")
+                Hatch.append("")
         else:
-            Color.append("b")
+            Color.append("k")
             Hatch.append("")
     plt.bar(np.array(range(1, len(UserList)+1)), np.array(UserScore),
             tick_label=UserList, align="center", color=Color)
