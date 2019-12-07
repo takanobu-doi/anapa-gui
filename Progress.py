@@ -48,4 +48,4 @@ while True:
             Hatch.append("")
     plt.bar(np.array(range(1, len(UserList)+1)), np.array(UserScore),
             tick_label=UserList, align="center", color=Color)
-    plt.pause(1)
+    plt.pause(30)
