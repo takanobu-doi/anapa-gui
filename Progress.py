@@ -27,9 +27,8 @@ while True:
             if UserScore[i]>UserScore[UID[j]]:
                 UID[j:j] = [i]
                 break
-            else:
+            elif j==len(UID)-1:
                 UID[len(UID):len(UID)] = [i]
-                break
     Color = []
     Hatch = []
     for i in range(len(UserScore)):
@@ -37,7 +36,7 @@ while True:
             if UID[0]==i:
                 Color.append("gold")
                 Hatch.append("*")
-            if UID[1]==i:
+            elif UID[1]==i:
                 Color.append("silver")
                 Hatch.append("")
             else:
