@@ -357,6 +357,7 @@ int GroupBox::GetEvent()
     fCathode->SetState(kButtonUp);
   }else{
     str = "Go Next!! GOGO!!";
+    fNext->SetState(kButtonUp);
   }
   message->SetText(str.c_str());
   return EventId;
@@ -415,9 +416,11 @@ void GroupBox::OutputData()
 {
   ofile << RunNo << " " << EventNo << " " << std::flush;
   ofile << EventId << " " << std::flush;
-  for(int i=0;i!=EventId+1;++i){
-    ofile << X_anode.at(i) << " " << Y_anode.at(i) << " "
-	  << X_cathode.at(i) << " " << Y_cathode.at(i) << " " << std::flush;
+  if(EventId<4){
+    for(int i=0;i!=EventId+1;++i){
+      ofile << X_anode.at(i) << " " << Y_anode.at(i) << " "
+	    << X_cathode.at(i) << " " << Y_cathode.at(i) << " " << std::flush;
+    }
   }
   ofile << std::endl;
 }
