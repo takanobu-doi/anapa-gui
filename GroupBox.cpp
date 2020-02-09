@@ -143,8 +143,8 @@ GroupBox::GroupBox(const TGWindow *p, const char *name, const int H, const int W
   horz2->AddFrame(fNext, new TGLayoutHints(kLHintsRight | kLHintsCenterY, 0, 10, 0, 0));
   
   // create 2D-histograms
-  track_a = new TH2D("track_a", "anode", 256, 0, 256, 1024, 0, 1024);
-  track_c = new TH2D("track_c", "cathode", 256, 0, 256, 1024, 0, 1024);
+  track_a = new TH2D("track_a", "anode", 260, -2, 258, 1030, -3, 1027);
+  track_c = new TH2D("track_c", "cathode", 260, 0, 258, 1030, -3, 1027);
   gStyle->SetPalette(56);
 }
 

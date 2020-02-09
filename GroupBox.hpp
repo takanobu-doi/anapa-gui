@@ -73,7 +73,7 @@ private:
   TTree *tree;
   TH2D *track_a;
   TH2D *track_c;
-  ULong64_t Map[2][256][16];
+  UInt_t Map[2][256][32];
   
 public:
   GroupBox();

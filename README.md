@@ -20,7 +20,7 @@ for(int ii=0;ii!=2;++ii){
   for(int jj=0;jj!=1024;++jj){
     for(int kk=0;kk!=256;++kk){
       if(raw[ii][jj][kk]!=0){
-        Map[ii][kk][jj/64] += (((ULong64_t)1)<<(k%64));
+        Map[ii][kk][jj/32] += (((UInt_t)1)<<(k%32));
       }
     }
   }
