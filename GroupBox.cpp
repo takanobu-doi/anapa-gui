@@ -108,13 +108,13 @@ GroupBox::GroupBox(const TGWindow *p, const char *name, const int H, const int W
   vert->AddFrame(horz2, new TGLayoutHints(kLHintsLeft | kLHintsCenterY)); // set horz2 to vert frame
   // create radio button & select button
   fEventSelect = new TGButtonGroup(horz2, "Track Number", kChildFrame | kVerticalFrame);
-  new TGRadioButton(fEventSelect, "1", 1);
-  new TGRadioButton(fEventSelect, "2", 2);
-  new TGRadioButton(fEventSelect, "3", 3);
-  new TGRadioButton(fEventSelect, "4~", 4);
+  new TGRadioButton(fEventSelect, "&1", 1);
+  new TGRadioButton(fEventSelect, "&2", 2);
+  new TGRadioButton(fEventSelect, "&3", 3);
+  new TGRadioButton(fEventSelect, "&4~", 4);
   fEventSelect->Connect("Pressed(Int_t)", "GroupBox", this, "SetEvent(Int_t)");
   fEventSelect->SetButton(0);
-  fSelect = new TGTextButton(horz2, "Select");
+  fSelect = new TGTextButton(horz2, "&Select");
   fSelect->SetState(kButtonDisabled);
   fSelect->Connect("Clicked()", "GroupBox", this, "GetEvent()");
   message = new TGLabel(horz2, "                                                      \n\n");
@@ -123,17 +123,17 @@ GroupBox::GroupBox(const TGWindow *p, const char *name, const int H, const int W
   horz2->AddFrame(message, new TGLayoutHints(kLHintsNormal));
 
   // create anode & cathode button
-  fAnode = new TGTextButton(horz2, "Anode");
+  fAnode = new TGTextButton(horz2, "&Anode");
   fAnode->Connect("Clicked()", "GroupBox", this, "Anode()");
   fAnode->SetState(kButtonDisabled);
-  fCathode = new TGTextButton(horz2, "Cathode");
+  fCathode = new TGTextButton(horz2, "&Cathode");
   fCathode->Connect("Clicked()", "GroupBox", this, "Cathode()");
   fCathode->SetState(kButtonDisabled);
   horz2->AddFrame(fAnode, new TGLayoutHints(kLHintsCenterY));
   horz2->AddFrame(fCathode, new TGLayoutHints(kLHintsCenterY));
 
   // create next & cancel button
-  fNext = new TGTextButton(horz2, "Next");
+  fNext = new TGTextButton(horz2, "&Next");
   fNext->Connect("Clicked()", "GroupBox", this, "Next()");
   fNext->SetState(kButtonDisabled);
   fCancel = new TGTextButton(horz2, "Cancel");
