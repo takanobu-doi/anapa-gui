@@ -1,7 +1,7 @@
 CXX = g++
-TARGET = anapa_gui
-OBJ = anapa_gui.o MyClassDict.o GUIWindow.o GroupBox.o decode.o ClickPos.o
-SOURCE = anapa_gui.cpp MyClassDict.cpp GUIWindow.cpp GroupBox.cpp decode.cpp ClickPos.cpp
+TARGET = eyescan
+OBJ = eyescan.o MyClassDict.o GUIWindow.o GroupBox.o decode.o ClickPos.o
+SOURCE = eyescan.cpp MyClassDict.cpp GUIWindow.cpp GroupBox.cpp decode.cpp ClickPos.cpp
 INC = GUIWindow.hpp GroupBox.hpp decode.hpp ClickPos.hpp
 ROOT_LIBS = $(shell root-config --glibs)
 ROOT_FLAGS = $(shell root-config --cflags)
